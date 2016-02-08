@@ -11,4 +11,12 @@ module.exports = function(grunt) {
 		grunt.task.run([target, 'requirejs:' + target, 'copy:dist', 'copy:export']);
 	});
 
+	grunt.registerTask('ftp', 'Copy the production files to the proper location for further testing', function(target) {
+		grunt.config('copy.export.files', [
+			{expand: true, cwd: 'build/' + target , src: ['**/*.*', '**/.*'], dest: localPath, filter: 'isFile'},
+		]);
+
+		grunt.task.run([target, 'ftp_push:desktop']);
+	});
+
 }

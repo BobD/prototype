@@ -14,6 +14,7 @@ module.exports = function(grunt) {
       '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
       ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
 
+    // https://github.com/gruntjs/grunt-contrib-connect
     connect: {
       desktop: {
         options: {
@@ -31,6 +32,7 @@ module.exports = function(grunt) {
       }
     },
 
+    // https://github.com/gruntjs/grunt-contrib-copy
     copy: {
       desktop: {
        files: [
@@ -58,6 +60,7 @@ module.exports = function(grunt) {
       }
     },
 
+    // https://github.com/gruntjs/grunt-contrib-cssmin
     cssmin: {
       desktop: {
         files: {
@@ -127,6 +130,29 @@ module.exports = function(grunt) {
           out: "build/mobile/scripts/main.min.js"
         }
       }
+    },
+
+
+    // https://www.npmjs.com/package/grunt-ftp-push
+    ftp_push: {
+        desktop: {
+            options: {
+                authKey: "bdcreations",
+                host: "ftp.bdcreations.nl",
+                // dest: "/domains/bdcreations.nl/public_html/projects//",
+                port: 21
+            },
+            files: [
+                {
+                    expand: true,
+                    cwd: "build/desktop",
+                    src: [
+                        "**/*.*",
+                        "**/.*"
+                    ]
+                }
+            ]
+        }
     },
 
     // https://github.com/gruntjs/grunt-contrib-watch
